@@ -86,7 +86,7 @@ static CDVWKInAppBrowser* instance = nil;
 
  -(void)keyboardWillHide
 {
-    NSLog(@"Keyboard Will Hide!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");    
+    NSLog(@"Keyboard is hiding");    
     if (@available(iOS 12.0, *)) {
         timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
@@ -95,7 +95,7 @@ static CDVWKInAppBrowser* instance = nil;
 
  -(void)keyboardWillShow
 {
-    NSLog(@"Keyboard Will Show!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");    
+    NSLog(@"Keyboard is showing");    
     if (timer != nil) {
         [timer invalidate];
     }
@@ -103,6 +103,7 @@ static CDVWKInAppBrowser* instance = nil;
 
  -(void)keyboardDisplacementFix
 {
+    NSLog(@"Keyboard displacement fix");    
     // https://stackoverflow.com/a/9637807/824966
     [UIView animateWithDuration:.25 animations:^{
         self.webView.scrollView.contentOffset = CGPointMake(0, 0);
