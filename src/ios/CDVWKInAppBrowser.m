@@ -72,10 +72,16 @@ static CDVWKInAppBrowser* instance = nil;
     _beforeload = @"";
     _waitForBeforeload = NO;
 
-    [[NSNotificationCenter defaultCenter]
+    /*[[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(keyboardWillHide)
      name:UIKeyboardWillHideNotification object:nil];
+     */
+
+     [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(keyboardDidHide)
+     name:UIKeyboardDidHideNotification object:nil];
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -84,7 +90,7 @@ static CDVWKInAppBrowser* instance = nil;
 }
 
 
- -(void)keyboardWillHide
+ -(void)keyboardDidHide
 {
     /*NSLog(@"Keyboard is hiding");    
     if (@available(iOS 12.0, *)) {
