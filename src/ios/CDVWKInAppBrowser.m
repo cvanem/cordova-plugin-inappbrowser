@@ -104,7 +104,7 @@ static CDVWKInAppBrowser* instance = nil;
  -(void)keyboardDisplacementFix
 {
     NSLog(@"Keyboard displacement fix");    
-     /*if(self.callbackId != nil){
+     if(self.callbackId != nil){
         // Send a message event
         NSMutableDictionary* dResult = [NSMutableDictionary new];
         [dResult setValue:@"message" forKey:@"type"];
@@ -113,26 +113,16 @@ static CDVWKInAppBrowser* instance = nil;
         CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dResult];
         [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
-    }*/
-    
+    }
+
     /*
     // https://stackoverflow.com/a/9637807/824966
-    [UIView animateWithDuration:.25 animations:^{
-        self.webView.scrollView.contentOffset = CGPointMake(0, 0);
-    }];
     */
-        //[self.webView.scrollView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-    
     if ([self.inAppBrowserViewController.webView respondsToSelector:@selector(scrollView)]) {
-        //((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).bounces = NO;
-        NSLog(@"Keyboard displacement fix2");    
-          [UIView animateWithDuration:.25 animations:^{
-              self.webView.scrollView.contentOffset = CGPointMake(0, 0);
-        
-    }];
-
-//((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).contentOffset = CGPointMake(0, 0);
-        //((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).bounces = NO;
+        NSLog(@"Keyboard displacement fix");    
+        [UIView animateWithDuration:.25 animations:^{
+            ((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).contentOffset = CGPointMake(0, 0);
+        }];        
     } 
     
 
