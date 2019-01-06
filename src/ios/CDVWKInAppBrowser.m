@@ -95,18 +95,13 @@ static CDVWKInAppBrowser* instance = nil;
 
     if(self.callbackId != nil){
         // Send a message event
-        NSString* messageContent = (NSString*) message.body;
-        NSError* __autoreleasing error = nil;
-        NSData* decodedResult = [NSJSONSerialization JSONObjectWithData:[messageContent dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
-        if (error == nil) {
-            NSMutableDictionary* dResult = [NSMutableDictionary new];
-            [dResult setValue:@"message" forKey:@"type"];
-            [dResult setValue:@"KEYBOARD_DISMISS" forKey:@"data"];
-            //[dResult setObject:decodedResult forKey:@"data"];
-            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dResult];
-            [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
-        }
+        NSMutableDictionary* dResult = [NSMutableDictionary new];
+        [dResult setValue:@"message" forKey:@"type"];
+        [dResult setValue:@"KEYBOARD_DISMISS" forKey:@"data"];
+        //[dResult setObject:decodedResult forKey:@"data"];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dResult];
+        [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
     }
 }
 
