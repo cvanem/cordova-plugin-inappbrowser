@@ -86,10 +86,27 @@ static CDVWKInAppBrowser* instance = nil;
 
  -(void)keyboardWillHide
 {
-    NSLog(@"Keyboard is hiding");    
+    /*NSLog(@"Keyboard is hiding");    
     if (@available(iOS 12.0, *)) {
         timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    }
+    */
+
+    if(self.callbackId != nil){
+        // Send a message event
+        NSString* messageContent = (NSString*) message.body;
+        NSError* __autoreleasing error = nil;
+        NSData* decodedResult = [NSJSONSerialization JSONObjectWithData:[messageContent dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:&error];
+        if (error == nil) {
+            NSMutableDictionary* dResult = [NSMutableDictionary new];
+            [dResult setValue:@"message" forKey:@"type"];
+            [dResult setValue:@"KEYBOARD_DISMISS" forKey:@"data"];
+            //[dResult setObject:decodedResult forKey:@"data"];
+            CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dResult];
+            [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+            [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+        }
     }
 }
 
@@ -101,7 +118,7 @@ static CDVWKInAppBrowser* instance = nil;
     }
 }
 
- -(void)keyboardDisplacementFix
+ /*-(void)keyboardDisplacementFix
 {
     NSLog(@"Keyboard displacement fix");    
     // https://stackoverflow.com/a/9637807/824966
@@ -110,6 +127,7 @@ static CDVWKInAppBrowser* instance = nil;
     }];
 
  }
+ */
 
 - (id)settingForKey:(NSString*)key
 {
