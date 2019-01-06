@@ -72,16 +72,10 @@ static CDVWKInAppBrowser* instance = nil;
     _beforeload = @"";
     _waitForBeforeload = NO;
 
-    /*[[NSNotificationCenter defaultCenter]
+    [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(keyboardWillHide)
      name:UIKeyboardWillHideNotification object:nil];
-     */
-
-     [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(keyboardDidHide)
-     name:UIKeyboardDidHideNotification object:nil];
 
     [[NSNotificationCenter defaultCenter]
      addObserver:self
@@ -90,24 +84,12 @@ static CDVWKInAppBrowser* instance = nil;
 }
 
 
- -(void)keyboardDidHide
+ -(void)keyboardWillHide
 {
-    /*NSLog(@"Keyboard is hiding");    
+    NSLog(@"Keyboard is hiding");    
     if (@available(iOS 12.0, *)) {
         timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    }
-    */
-
-    if(self.callbackId != nil){
-        // Send a message event
-        NSMutableDictionary* dResult = [NSMutableDictionary new];
-        [dResult setValue:@"message" forKey:@"type"];
-        [dResult setValue:@"KEYBOARD_DISMISS" forKey:@"data"];
-        //[dResult setObject:decodedResult forKey:@"data"];
-        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dResult];
-        [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
-        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
     }
 }
 
@@ -119,16 +101,28 @@ static CDVWKInAppBrowser* instance = nil;
     }
 }
 
- /*-(void)keyboardDisplacementFix
+ -(void)keyboardDisplacementFix
 {
     NSLog(@"Keyboard displacement fix");    
+     if(self.callbackId != nil){
+        // Send a message event
+        NSMutableDictionary* dResult = [NSMutableDictionary new];
+        [dResult setValue:@"message" forKey:@"type"];
+        [dResult setValue:@"KEYBOARD_DISMISS" forKey:@"data"];
+        //[dResult setObject:decodedResult forKey:@"data"];
+        CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dResult];
+        [pluginResult setKeepCallback:[NSNumber numberWithBool:YES]];
+        [self.commandDelegate sendPluginResult:pluginResult callbackId:self.callbackId];
+    }
+    
+    /*
     // https://stackoverflow.com/a/9637807/824966
     [UIView animateWithDuration:.25 animations:^{
         self.webView.scrollView.contentOffset = CGPointMake(0, 0);
     }];
+    */
 
  }
- */
 
 - (id)settingForKey:(NSString*)key
 {
