@@ -86,6 +86,7 @@ static CDVWKInAppBrowser* instance = nil;
 
  -(void)keyboardWillHide
 {
+    NSLog(@"Keyboard Will Hide!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");    
     if (@available(iOS 12.0, *)) {
         timer = [NSTimer scheduledTimerWithTimeInterval:0 target:self selector:@selector(keyboardDisplacementFix) userInfo:nil repeats:false];
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
@@ -94,6 +95,7 @@ static CDVWKInAppBrowser* instance = nil;
 
  -(void)keyboardWillShow
 {
+    NSLog(@"Keyboard Will Show!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");    
     if (timer != nil) {
         [timer invalidate];
     }
