@@ -47,6 +47,13 @@
 }
 @end
 
+@implementation UIScrollView (NoBounce)
+- (void)didMoveToWindow {
+   [super didMoveToWindow];
+   self.bounces = NO;
+}
+@end
+
 @implementation CDVWKInAppBrowser
 
 static CDVWKInAppBrowser* instance = nil;
