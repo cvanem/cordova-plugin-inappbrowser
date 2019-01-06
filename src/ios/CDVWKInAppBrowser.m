@@ -127,9 +127,11 @@ static CDVWKInAppBrowser* instance = nil;
         //((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).bounces = NO;
         NSLog(@"Keyboard displacement fix2");    
           [UIView animateWithDuration:.25 animations:^{
-        ((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).contentOffset = CGPointMake(0, 0);
+              self.webView.scrollView.contentOffset = CGPointMake(0, 0);
+        
     }];
 
+//((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).contentOffset = CGPointMake(0, 0);
         //((UIScrollView*)[self.inAppBrowserViewController.webView scrollView]).bounces = NO;
     } 
     
